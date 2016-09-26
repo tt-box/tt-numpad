@@ -8,27 +8,73 @@
 -->
 
 <dom-module id="tt-numpad">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]</h2>
-  </template>
+    <template>
+        <style>
+            :host {
+                @apply(--layout-vertical);
+            }
 
-  <script>
-    Polymer({
+            .row {
+                @apply(--layout-horizontal);
+            }
 
-      is: 'tt-numpad',
+            .button {
+                position: relative;
+                width: 48px;
+                height: 48px;
+                line-height: 16px;
+                padding: 4px;
+                border-radius: 2px;
+                font-size: 0.9em;
+                background-color: #fff;
+                color: #646464;
+                @apply(--layout-flex);
+            }
+            .button.raised {
+                transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                transition-delay: 0.2s;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            }
+            .button.raised:active {
+                box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+                transition-delay: 0s;
+            }
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'tt-numpad',
-        },
-      },
+        </style>
+        <div class="row">
+            <div class="button raised">7</div>
+            <div class="button raised">8</div>
+            <div class="button raised">9</div>
+        </div>
+        <div class="row">
+            <div class="button raised">4</div>
+            <div class="button raised">5</div>
+            <div class="button raised">6</div>
+        </div>
+        <div class="row">
+            <div class="button raised">1</div>
+            <div class="button raised">2</div>
+            <div class="button raised">3</div>
+        </div>
+        <div class="row">
+            <div class="button raised">0</div>
+            <div class="button raised">00</div>
+            <div class="button raised">.</div>
+        </div>
+    </template>
 
-    });
-  </script>
+    <script>
+        Polymer({
+
+            is: 'tt-numpad',
+
+            properties: {
+                prop1: {
+                    type: String,
+                    value: 'tt-numpad',
+                },
+            },
+
+        });
+    </script>
 </dom-module>
