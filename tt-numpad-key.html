@@ -48,7 +48,7 @@ Polymer Element tt-numpad-key
             }
 
         </style>
-        [[padkey]]
+        [[_displayKey(padkey)]]
         <paper-ripple id="ripple"></paper-ripple>
 
     </template>
@@ -69,6 +69,10 @@ Polymer Element tt-numpad-key
 
             listeners: {
                 'tap': 'onTap'
+            },
+
+            _displayKey:function(key) {
+                return key;
             },
 
             simulatedRipple: function () {
