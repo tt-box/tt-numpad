@@ -2,7 +2,8 @@
 
 
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="tt-numpad-key.html">
 
 <!--
 `tt-numpad`
@@ -20,55 +21,41 @@
 
             .row {
                 @apply(--layout-horizontal);
+                margin-bottom: 2px;
             }
 
-            .button {
-                position: relative;
-                width: 48px;
-                height: 48px;
-                line-height: 16px;
-                text-align: center;
-                padding: 4px;
-                border-radius: 2px;
-                font-size: 0.9em;
-                background-color: #fff;
-                color: #646464;
+            .numpad {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                margin-right: 2px;
                 @apply(--layout-flex);
+                margin-right: 4px;
             }
-            .button.raised {
-                transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                transition-delay: 0.2s;
-                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            .flex2 {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                @apply(--layout-flex-2);
             }
-            .button.raised:active {
-                box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-                transition-delay: 0s;
-            }
-
-            .button.grey {
-                background-color: #eee;
-            }
-
         </style>
         <div class="row">
-            <div class="button raised grey">7</div>
-            <div class="button raised grey">8</div>
-            <div class="button raised grey">9</div>
+            <tt-numpad-key class="numpad" padkey="7">7</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="8">8</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="9">9</tt-numpad-key>
         </div>
         <div class="row">
-            <div class="button raised grey">4</div>
-            <div class="button raised grey">5</div>
-            <div class="button raised grey">6</div>
+            <tt-numpad-key class="numpad" padkey="4">4</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="5">5</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="6">6</tt-numpad-key>
         </div>
         <div class="row">
-            <div class="button raised grey">1</div>
-            <div class="button raised grey">2</div>
-            <div class="button raised grey">3</div>
+            <tt-numpad-key class="numpad" padkey="1">1</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="2">2</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="3">3</tt-numpad-key>
         </div>
         <div class="row">
-            <div class="button raised grey">0</div>
-            <div class="button raised grey">00</div>
-            <div class="button raised grey">.</div>
+            <tt-numpad-key class="numpad" padkey=".">.</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="0">0</tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="=">=</tt-numpad-key>
         </div>
     </template>
 
@@ -77,10 +64,18 @@
 
             is: 'tt-numpad',
 
+
             properties: {
-                prop1: {
-                    type: String,
-                    value: 'tt-numpad',
+                standardKeys: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            ['7', '4', '1', '.'],
+                            ['8', '5', '2', '0'],
+                            ['9', '6', '3', '='],
+                            ['DEL', '+', '-', '\u00F7', '\u00D7']
+                        ];
+                    }
                 },
             },
 

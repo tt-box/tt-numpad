@@ -1,0 +1,87 @@
+<link rel="import" href="../polymer/polymer.html">
+
+
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+
+
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<!--
+`tt-numpad-key`
+Polymer Element tt-numpad-key
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-key">
+    <template>
+        <style>
+            :host {
+                display: block;
+                position: relative;
+                min-width: 48px;
+                min-height: 48px;
+                padding: 4px;
+                border-radius: 2px;
+            }
+
+            :host {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+                @apply(--layout-center);
+                @apply(--layout-center-justified);
+            }
+
+            :host {
+                @apply(--paper-font-display1);
+                color: var(--paper-grey-300);
+                background-color: var(--paper-grey-700);
+            }
+
+            :host(.blue)  {
+                color: var(--paper-blue-50);
+                background-color: var(--paper-blue-700);
+            }
+
+        </style>
+        [[padkey]]
+        <paper-ripple id="ripple"></paper-ripple>
+
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-key',
+
+            hostAttributes: {
+                tabindex: 1
+            },
+
+            properties: {
+                padkey: String,
+            },
+
+
+            listeners: {
+                'tap': 'onTap'
+            },
+
+            simulatedRipple: function () {
+              this.$.ripple.simulatedRipple();
+            },
+
+            onTap: function (e) {
+//                var keyVal = this.getContentChildren('#content');
+                var keyVal = this.padkey;
+                console.log("On Tap on " + keyVal);
+                this.fire('numpad-tap', {key: keyVal});
+            },
+
+        });
+    </script>
+</dom-module>
