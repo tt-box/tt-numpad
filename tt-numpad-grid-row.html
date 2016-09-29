@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`tt-numpad-grid-row`
+Polymer Element tt-numpad-grid-row
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-grid-row">
+    <template>
+        <style>
+            :host {
+                @apply(--layout-vertical);
+                background-color: var(--paper-grey-900);
+            }
+
+            .row {
+                @apply(--layout-horizontal);
+            }
+
+            .numpad {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                margin: 2px;
+                @apply(--layout-flex);
+            }
+            .flex2 {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                @apply(--layout-flex-2);
+            }
+        </style>
+        <template is="dom-repeat" items="[[standardKeys]]" as="keys">
+            <div class="row">
+                <template is="dom-repeat" items="[[keys]]" as="key">
+                    <tt-numpad-key class="numpad" padkey="[[key]]"></tt-numpad-key>
+                </template>
+            </div>
+        </template>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-grid-row',
+
+            properties: {
+                standardKeys: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            ['7', '8', '9', 'DEL'],
+                            ['4', '5', '6', '+'],
+                            ['1', '2', '3', '-'],
+                            ['.', '0', '=', '\u00D7']
+                        ];
+                    }
+                },
+            },
+
+        });
+    </script>
+</dom-module>

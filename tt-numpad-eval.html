@@ -1,0 +1,45 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`tt-numpad-calc`
+Polymer Element tt-numpad-eval
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-eval">
+    
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-eval',
+
+            properties: {
+                expression: {
+                    type: String,
+                    notify: true
+                },
+                result: {
+                    type: String,
+                    notify: true
+                }
+            },
+            
+            eval: function () {
+                var s = this._parseExpression(this.expression);
+                try {
+                    this.result = eval(s);
+                } catch (x) {
+                    this.result = '?';
+                }
+                console.log('Result : ', this.result);
+            },
+
+            _parseExpression : function (s) {
+                var parsed = s.replace(/\u00D7/g, '*').replace(/\u00F7/g, '/');
+                return parsed;
+            }
+
+        });
+    </script>
+</dom-module>

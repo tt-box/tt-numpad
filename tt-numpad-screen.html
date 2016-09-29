@@ -1,0 +1,41 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
+<!--
+`tt-numpad-screen`
+Polymer Element tt-numpad-screen
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-screen">
+    <template>
+        <style>
+            :host {
+                display: block;
+                position: relative;
+                min-height: 48px;
+                background-color: var(--paper-blue-grey-900);
+                @apply(--paper-font-display1);
+                color: var(--paper-green-300)
+            }
+        </style>
+        <div>[[expression]]</div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-screen',
+
+            properties: {
+                expression: {
+                    type: String,
+                    notify: true
+                },
+            },
+
+        });
+    </script>
+</dom-module>

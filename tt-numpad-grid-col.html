@@ -1,0 +1,72 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="tt-numpad-key.html">
+
+
+<!--
+`tt-numpad-grid`
+Polymer Element tt-numpad-grid-col
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-grid-col">
+    <template>
+        <style>
+            :host {
+                position: relative;
+                @apply(--layout-horizontal);
+                background-color: var(--paper-grey-900);
+            }
+
+            .col {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+            }
+
+            .numpad {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                margin: 2px;
+                @apply(--layout-flex);
+            }
+            .flex2 {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                @apply(--layout-flex-2);
+            }
+        </style>
+        <template is="dom-repeat" items="[[standardKeys]]" as="keys">
+            <div class="col">
+                <template is="dom-repeat" items="[[keys]]" as="key">
+                    <tt-numpad-key class="numpad" padkey="[[key]]"></tt-numpad-key>
+                </template>
+            </div>
+        </template>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-grid-col',
+
+            properties: {
+                standardKeys: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            ['7', '4', '1', '.'],
+                            ['8', '5', '2', '0'],
+                            ['9', '6', '3', '='],
+                            ['DEL', '+', '-', '\u00F7', '\u00D7']
+                        ];
+                    }
+                },
+            },
+
+        });
+    </script>
+</dom-module>

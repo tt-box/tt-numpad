@@ -30,6 +30,26 @@ Polymer Element tt-numpad-key
             }
 
             :host {
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none;   /* Chrome/Safari/Opera */
+                -khtml-user-select: none;    /* Konqueror */
+                -moz-user-select: none;      /* Firefox */
+                -ms-user-select: none;       /* Internet Explorer/Edge */
+                user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+            }
+
+            .noselect {
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none;   /* Chrome/Safari/Opera */
+                -khtml-user-select: none;    /* Konqueror */
+                -moz-user-select: none;      /* Firefox */
+                -ms-user-select: none;       /* Internet Explorer/Edge */
+                user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+            }
+
+            :host {
                 @apply(--layout-horizontal);
                 @apply(--layout-flex);
                 @apply(--layout-center);
@@ -83,7 +103,7 @@ Polymer Element tt-numpad-key
 //                var keyVal = this.getContentChildren('#content');
                 var keyVal = this.padkey;
 //                console.log("On Tap on " + keyVal);
-                this.fire('numpad-tap', {key: keyVal});
+                this.fire('keytap', {key: keyVal});
             },
 
         });

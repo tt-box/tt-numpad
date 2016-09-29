@@ -3,7 +3,15 @@
 
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 
-<link rel="import" href="tt-numpad-key.html">
+
+<link rel="import" href="tt-numpad-screen.html">
+
+<link rel="import" href="tt-numpad-grid.html">
+<link rel="import" href="tt-numpad-grid-col.html">
+<link rel="import" href="tt-numpad-grid-row.html">
+
+<link rel="import" href="tt-numpad-eval.html">
+
 
 <!--
 `tt-numpad`
@@ -20,42 +28,15 @@
                 background-color: var(--paper-grey-900);
             }
 
-            .row {
-                @apply(--layout-horizontal);
-            }
 
-            .numpad {
-                /*background-color: var(--paper-grey-700);*/
-                /*color: var(--paper-grey-100);*/
-                margin: 2px;
-                @apply(--layout-flex);
-            }
-            .flex2 {
-                /*background-color: var(--paper-grey-700);*/
-                /*color: var(--paper-grey-100);*/
-                @apply(--layout-flex-2);
-            }
         </style>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="7"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="8"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="9"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="4"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="5"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="6"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="1"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="2"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="3"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="."></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="0"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="="></tt-numpad-key>
-        </div>
+        <tt-numpad-screen id="screen" expression="[[expression]]"></tt-numpad-screen>
+        <tt-numpad-grid-col on-keytap="_onKeyTap"></tt-numpad-grid-col>
+        <tt-numpad-grid-row on-keytap="_onKeyTap"></tt-numpad-grid-row>
+        <tt-numpad-grid on-keytap="_onKeyTap"></tt-numpad-grid>
+
+        <tt-numpad-eval id="calc" expression="[[expression]]" result="[[result]]"></tt-numpad-eval>
+
     </template>
 
     <script>
@@ -65,18 +46,35 @@
 
 
             properties: {
-                standardKeys: {
-                    type: Array,
-                    value: function () {
-                        return [
-                            ['7', '4', '1', '.'],
-                            ['8', '5', '2', '0'],
-                            ['9', '6', '3', '='],
-                            ['DEL', '+', '-', '\u00F7', '\u00D7']
-                        ];
-                    }
-                },
+                expression: {
+                    type: String,
+                    value: ''
+                }
             },
+
+            _onKeyTap:function (e) {
+                var detail = e.detail;
+                this._processKey(detail.key);
+            },
+
+            _processKey: function (key) {
+                console.log(key);
+                if (key === '=') {
+                    this.async(this.eval);
+                } else if (key === 'DEL') {
+                    this.del();
+                } else {
+                    this.expression += key;
+                }
+
+            },
+            del:function () {
+                this.expression ='';
+            },
+
+            eval: function () {
+                this.$.calc.eval();
+            }
 
         });
     </script>
