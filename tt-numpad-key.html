@@ -92,11 +92,13 @@ Polymer Element tt-numpad-key
             },
 
             onTap: function (e) {
-//                var keyVal = this.getContentChildren('#content');
                 var keyVal = this.padkey;
-//                console.log("On Tap on " + keyVal);
-                this.fire('keytap', {key: keyVal});
+                this._fireKeyTap(keyVal);
             },
+            _fireKeyTap: function (keyVal) {
+//                console.log("Fire event  keytap :" , keyVal);
+                this.fire('keytap', {key: keyVal});
+            }
 
         });
     </script>
