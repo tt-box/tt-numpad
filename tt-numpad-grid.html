@@ -15,8 +15,17 @@ Polymer Element tt-numpad-grid
                 background-color: var(--paper-grey-900);
             }
 
-            .row {
+            #subContainer {
                 @apply(--layout-horizontal);
+            }
+
+            :host(.col){
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+            }
+            :host(.col) #subContainer {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
             }
 
             .numpad {
@@ -31,26 +40,13 @@ Polymer Element tt-numpad-grid
                 @apply(--layout-flex-2);
             }
         </style>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="7"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="8"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="9"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="4"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="5"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="6"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="1"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="2"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="3"></tt-numpad-key>
-        </div>
-        <div class="row">
-            <tt-numpad-key class="numpad" padkey="."></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="0"></tt-numpad-key>
-            <tt-numpad-key class="numpad" padkey="="></tt-numpad-key>
-        </div>
+        <template is="dom-repeat" items="[[standardKeys]]" as="keys">
+            <div id="subContainer" class="row">
+                <template is="dom-repeat" items="[[keys]]" as="key">
+                    <tt-numpad-key id$="key_[[key]]" class="numpad" padkey="[[key]]"></tt-numpad-key>
+                </template>
+            </div>
+        </template>
     </template>
 
     <script>
@@ -59,10 +55,32 @@ Polymer Element tt-numpad-grid
             is: 'tt-numpad-grid',
 
             properties: {
-                prop1: {
-                    type: String,
-                    value: 'tt-numpad-grid',
+                standardKeys: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            ['7', '8', '9', 'DEL'],
+                            ['4', '5', '6', '+'],
+                            ['1', '2', '3', '-'],
+                            ['.', '0', '=', '\u00D7']
+                        ];
+                    }
                 },
+            },
+            simulatedRipple: function (keyName) {
+                var key = this._transformKey(keyName);
+                var keyId = 'key_' +key;
+                console.log('simulatedRipple key : ', key);
+                var keypad = this.$$('#'+keyId);
+                if (keypad) {
+                    keypad.simulatedRipple();
+                }
+            },
+            _transformKey: function (key) {
+                if (key === 'backspace') {
+                    return 'DEL';
+                }
+                return key;
             },
 
         });

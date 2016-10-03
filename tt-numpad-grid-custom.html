@@ -1,0 +1,65 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`tt-numpad-grid-custom`
+Polymer Element tt-numpad-grid-custom
+
+@demo demo/index.html 
+-->
+
+<dom-module id="tt-numpad-grid-custom">
+    <template>
+        <style>
+            :host {
+                @apply(--layout-vertical);
+                background-color: var(--paper-grey-900);
+            }
+
+            .row {
+                @apply(--layout-horizontal);
+            }
+
+            .numpad {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                margin: 2px;
+                @apply(--layout-flex);
+            }
+            .flex2 {
+                /*background-color: var(--paper-grey-700);*/
+                /*color: var(--paper-grey-100);*/
+                @apply(--layout-flex-2);
+            }
+        </style>
+        <div class="row">
+            <tt-numpad-key class="numpad" padkey="7"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="8"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="9"></tt-numpad-key>
+        </div>
+        <div class="row">
+            <tt-numpad-key class="numpad" padkey="4"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="5"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="6"></tt-numpad-key>
+        </div>
+        <div class="row">
+            <tt-numpad-key class="numpad" padkey="1"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="2"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="3"></tt-numpad-key>
+        </div>
+        <div class="row">
+            <tt-numpad-key class="numpad" padkey="."></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="0"></tt-numpad-key>
+            <tt-numpad-key class="numpad" padkey="="></tt-numpad-key>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'tt-numpad-grid-custom',
+
+
+
+        });
+    </script>
+</dom-module>

@@ -2,13 +2,14 @@
 
 
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 
 
 <link rel="import" href="tt-numpad-screen.html">
 
-<link rel="import" href="tt-numpad-grid.html">
+<link rel="import" href="tt-numpad-grid-custom.html">
 <link rel="import" href="tt-numpad-grid-col.html">
-<link rel="import" href="tt-numpad-grid-row.html">
+<link rel="import" href="tt-numpad-grid.html">
 
 <link rel="import" href="tt-numpad-eval.html">
 
@@ -31,8 +32,8 @@
 
         </style>
         <tt-numpad-screen id="screen" expression="[[expression]]"></tt-numpad-screen>
-        <tt-numpad-grid-col on-keytap="_onKeyTap"></tt-numpad-grid-col>
-        <!--<tt-numpad-grid-row on-keytap="_onKeyTap"></tt-numpad-grid-row>-->
+        <!--<tt-numpad-grid-col on-keytap="_onKeyTap"></tt-numpad-grid-col>-->
+        <tt-numpad-grid-col id="keygrid" on-keytap="_onKeyTap"></tt-numpad-grid-col>
         <!--<tt-numpad-grid on-keytap="_onKeyTap"></tt-numpad-grid>-->
 
         <tt-numpad-eval id="calc" expression="[[expression]]" result="[[result]]"></tt-numpad-eval>
@@ -44,13 +45,57 @@
 
             is: 'tt-numpad',
 
+            behaviors: [
+                Polymer.IronA11yKeysBehavior
+            ],
 
             properties: {
                 expression: {
                     type: String,
                     value: ''
-                }
+                },
+                standardKeys: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            ['7', '4', '1', '.'],
+                            ['8', '5', '2', '0'],
+                            ['9', '6', '3', '='],
+                            ['DEL', '+', '-', '\u00F7', '\u00D7']
+                        ];
+                    }
+                },
             },
+
+
+            keyBindings: {
+                'space': '_onKeydown', // same as 'space:keydown'
+                'shift+tab': '_onKeydown',
+                'enter:keypress': '_onKeydown',
+                'esc:keyup': '_onKeyup',
+                'del': '_onKeydown',
+                'backspace': '_onKeydown',
+                '1': '_onKeydown',
+                '2': '_onKeydown',
+                '3': '_onKeydown',
+                '4': '_onKeydown',
+                '5': '_onKeydown',
+                '6': '_onKeydown',
+                '7': '_onKeydown',
+                '8': '_onKeydown',
+                '9': '_onKeydown',
+                '-': '_onKeydown',
+            },
+
+            _onKeydown: function(event) {
+//                event.preventDefault();
+                console.log('combo', event.detail.combo); // KEY+MODIFIER, e.g. "shift+tab"
+                console.log('key', event.detail.key); // KEY only, e.g. "tab"
+                console.log('event', event.detail.event); // EVENT, e.g. "keydown"
+                console.log('keyboardEvent', event.detail.keyboardEvent); // the original KeyboardEvent
+                this.$.keygrid.simulatedRipple(event.detail.key);
+            },
+
 
             _onKeyTap:function (e) {
                 var detail = e.detail;

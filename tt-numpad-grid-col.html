@@ -4,6 +4,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="tt-numpad-key.html">
+<link rel="import" href="tt-numpad-grid.html">
 
 
 <!--
@@ -22,30 +23,9 @@ Polymer Element tt-numpad-grid-col
                 background-color: var(--paper-grey-900);
             }
 
-            .col {
-                @apply(--layout-vertical);
-                @apply(--layout-flex);
-            }
 
-            .numpad {
-                /*background-color: var(--paper-grey-700);*/
-                /*color: var(--paper-grey-100);*/
-                margin: 2px;
-                @apply(--layout-flex);
-            }
-            .flex2 {
-                /*background-color: var(--paper-grey-700);*/
-                /*color: var(--paper-grey-100);*/
-                @apply(--layout-flex-2);
-            }
         </style>
-        <template is="dom-repeat" items="[[standardKeys]]" as="keys">
-            <div class="col">
-                <template is="dom-repeat" items="[[keys]]" as="key">
-                    <tt-numpad-key class="numpad" padkey="[[key]]"></tt-numpad-key>
-                </template>
-            </div>
-        </template>
+        <tt-numpad-grid id="keygrid" class="col" standard-keys="[[standardKeys]]"></tt-numpad-grid>
     </template>
 
     <script>
@@ -65,6 +45,9 @@ Polymer Element tt-numpad-grid-col
                         ];
                     }
                 },
+            },
+            simulatedRipple: function (key) {
+               this.$.keygrid.simulatedRipple(key);
             },
 
         });
